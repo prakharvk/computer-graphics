@@ -1,15 +1,15 @@
 #include <graphics.h>
 #include <stdio.h>
 #include <ctype.h>
-void main()
+int main()
 {
   int gd = DETECT, gm;
   initgraph(&gd, &gm, NULL);
   float x0, y0, x1, y1;
-  x0 = 2;
-  y0 = 2;
-  x1 = 50;
-  y1 = 50;
+  x0 = 0;
+  y0 = 0;
+  x1 = 10;
+  y1 = 0;
   float dx = x1 - x0;
   float dy = y1 - y0;
   float D;
@@ -33,8 +33,8 @@ void main()
       else
       {
         D = D + dy - dx;
-      }
-      y = y + 1;
+	y = y +1;      
+}
       putpixel(x, y, WHITE);
       delay(100);
     }
@@ -51,12 +51,13 @@ void main()
       else
       {
         D = D + dx - dy;
-      }
-      x = x + 1;
+	x=x+1;      
+}
       putpixel(x, y, WHITE);
       delay(100);
     }
   }
   delay(5000);
   closegraph();
+return 0;
 }
