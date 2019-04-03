@@ -1,7 +1,7 @@
 #include <graphics.h>
 #include <stdio.h>
 #include <ctype.h>
-void main()
+int main()
 {
   int gd = DETECT, gm;
   initgraph(&gd, &gm, NULL);
@@ -40,4 +40,5 @@ void main()
   }
   delay(5000);
   closegraph();
+  return 0;
 }
