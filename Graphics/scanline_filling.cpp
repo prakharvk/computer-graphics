@@ -1,19 +1,35 @@
-#include <stdio.h>
+#include <bits/stdc++.h>
 #include <graphics.h>
-void main(){
-	int n,i,j,k,gd,gm,dy,dx;
-	int x,y,temp;
+using namespace std;
+
+int main(){
+	int n, i, j, k, dy, dx, x, y, temp;
+	int gd = DETECT, gm = 0;
 	int a[20][2],xi[20];
 	float slope[20];
-	scanf("%d",&n);
-	for(i=0;i<n;i++)
-		scanf("%d %d",&a[i][0],&a[i][1]);
+	int ymin=  INT_MAX, ymax= INT_MIN;
+	
+	printf("Enter no of vertex : ");
+	scanf("%d", &n);
+
+	printf("Enter vertices in clockwise or counterclockwise: ");
+	for(i=0; i<n; i++){
+		printf("Enter %d vertex: ", i+1);
+		int o, p;
+		cin >> o >> p;
+		a[i][0] = o;
+		a[i][1] = p;
+		if( p < ymin) ymin = p;
+		if( p > ymax) ymax = p;
+	}
+
 	a[n][0]=a[0][0];
 	a[n][1]=a[0][1];
-	detectgraph(&gd,&gm);
-	initgraph(&gd,&gm,0);
+	initgraph(&gd, &gm, NULL);
+
 	for(i=0;i<n;i++)
 		line(a[i][0],a[i][1],a[i+1][0],a[i+1][1]);
+
 	for(i=0;i<n;i++){
 		dy=a[i+1][1]-a[i][1];
 		dx=a[i+1][0]-a[i][0];
@@ -24,7 +40,7 @@ void main(){
 		if((dy!=0)&&(dx!=0))
 			slope[i]=(float) dx/dy;
 	}
-	for(y=0;y< 480;y++){
+	for(y=ymin; y<=ymax; y++){
 		k=0;
 		for(i=0;i<n;i++){
 			if( ((a[i][1]<=y)&&(a[i+1][1]>y)) || ((a[i][1]>y)&&(a[i+1][1]<=y))){
@@ -40,12 +56,14 @@ void main(){
 					xi[i+1]=temp;
 				}
 			}
-			setcolor(35);
+			setcolor(3);
 			for(i=0;i<k;i+=2){
 				line(xi[i],y,xi[i+1]+1,y);
+				delay(100);
 			}
 		}
 	}
-	delay(4000);
+	
+	getch();
 	return 0;
 }

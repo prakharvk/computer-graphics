@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <graphics.h>
 #include <math.h>
-int gd = DETECT, gm=0;
+
 void bezier (int x[4], int y[4]){
     int i;
     double t;
@@ -15,15 +15,18 @@ void bezier (int x[4], int y[4]){
 		putpixel (x[i], y[i], YELLOW);
 }
 
-void main(){
+int main(){
     int x[4], y[4];
     int i;
     for (i=0; i<4; i++)
-		scanf ("%d %d",&x[i],&y[i]);
+		scanf ("%d %d", &x[i], &y[i]);
+	int gd = DETECT, gm=0;
 	initgraph(&gd,&gm,0);
+
     bezier(x,y);
-	delay(1000);
+    getch();
 	closegraph();
+	return 0;
 }
 /*
 

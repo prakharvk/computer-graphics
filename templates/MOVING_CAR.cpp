@@ -35,7 +35,7 @@ int main()
 		if (i == 478)
 			break;
 
-		clearviewport();
+		cleardevice();
 	}
 	getch();
 	closegraph();
