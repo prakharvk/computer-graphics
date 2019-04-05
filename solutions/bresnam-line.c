@@ -1,33 +1,43 @@
-#include<stdio.h>
-#include<graphics.h>
+#include <graphics.h>
+#include <stdio.h>
+#include <ctype.h>
 
-void bresnam_line(int x0, int y0, int x1, int y1){
-	int dx, dy, p, i;
-	dx = x1 - x0;
-	dy = y1 - y0;
-	p = 2 * dy - dx;
-	
-	int x = x0, y = y0;
-	putpixel(x, y, WHITE);
-    while(x<x1)
+int main()
+{
+  int gd = DETECT, gm;
+  initgraph(&gd, &gm, NULL);
+
+  float x0 = 2, y0 = 2, x1 = 500, y1 = 100;
+
+  float dx = x1 - x0;
+  float dy = y1 - y0;
+  int steps = dx - 1;
+  int i = 0;
+  int x = x0;
+  int y = y0;
+
+  putpixel(x, y, WHITE);
+  float p0 = 2 * dy - dx;
+  
+  while (i < steps)
+  {
+    if (p0 < 0)
     {
-        if(p < 0)
-            p += 2*dy;
-        else {
-            p += 2*(dy-dx);
-            y++;
-        }
-        x++;
-        putpixel(x, y, WHITE);
+      putpixel(x + 1, y, WHITE);
+      p0 = p0 + 2 * dy;
     }
-}
-		
-int main(){
-	int gd = DETECT, gm = 0;
-	initgraph(&gd, &gm, NULL);
-	
-	bresnam_line(2, 2, 106, 100);
-	getch();
+    else
+    {
+      putpixel(x + 1, y + 1, WHITE);
+      p0 = p0 + 2 * dy - 2 * dx;
+      y = y + 1;
+    }
+    i++;
+    x += 1;
+  }
 
-	return 0;
+  getch();
+  closegraph();
+  
+  return 0;
 }
