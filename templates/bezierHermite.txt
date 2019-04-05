@@ -1,0 +1,64 @@
+void bezier(int x1,int y1, int x2, int y2, int x3, int y3, int x4, int y4)
+{
+        putpixel(x1,y1,RED);
+        putpixel(x2,y2,RED);
+        putpixel(x3,y3,RED);
+        putpixel(x4,y4,RED);
+        for(float t=0;t<1;t+=0.001)
+        {
+                int x=(1-t)*(1-t)*(1-t)*x1 +3*t*(1-t)*(1-t)*x2 +3*t*t*(1-t)*x3+ t*t*t*x4;
+                int y=(1-t)*(1-t)*(1-t)*y1 +3*t*(1-t)*(1-t)*y2 +3*t*t*(1-t)*y3+ t*t*t*y4;
+                putpixel(x,y,WHITE);
+        }
+}
+
+
+//HERMITE
+#include<bits/stdc++.h>
+using namespace std;
+int r[1000][1000];
+int main(){
+	for(int i=0;i<1000;i++){
+		for(int j=0;j<1000;j++){
+			r[i][j]=0;
+		}
+	}
+	for(double t=0;t<1;t+=0.001){
+		double x = 100.0*(2.0*t*t*t-3.0*t*t+1.0)+10.0*(-2.0*t*t*t + 3.0*t*t)
+				-300.0*(t*t*t-2.0*t*t*+t)+10.0*(t*t*t-t*t);
+		double y = 10.0*(2.0*t*t*t-3.0*t*t+1.0)+100.0*(-2.0*t*t*t + 3.0*t*t)
+						-300.0*(t*t*t-2.0*t*t*+t)+10.0*(t*t*t-t*t);
+		cout<<x<<" "<<y<<endl;
+		r[(int)x][(int)y] = 255;
+	}
+	FILE *fp = fopen("C:\\Users\\khobaib\\Desktop\\hermite1.ppm","wb");
+	fprintf(fp,"P3\n1000\n1000\n255\n");
+	for(int i=0;i<1000;i++){
+		for(int j=0;j<1000;j++){
+			fprintf(fp,"%d 0 0 ",r[j][i]);
+			cout<<i<<" "<<j<<endl;
+		}
+		fprintf(fp,"\n");
+	}
+	fclose(fp);
+	return 0;
+}
+
+
+
+//HERMITE 2ND TEMPLATE
+struct point
+{
+int x,y;
+};
+ 
+void hermite(point p1,point p4,double r1,double r4)
+{
+	float x,y,t;
+	for(t=0.0;t<=1.0;t+=.001)
+	{
+		x=(2*t*t*t-3*t*t+1)*p1.x+(-2*t*t*t+3*t*t)*p4.x+(t*t*t-2*t*t+t)*r1+(t*t*t-t*t)*r4;
+		y=(2*t*t*t-3*t*t+1)*p1.y+(-2*t*t*t+3*t*t)*p4.y+(t*t*t-2*t*t+1)*r1+(t*t*t-t*t)*r4;
+		putpixel(x,y,YELLOW);
+	 }
+}
