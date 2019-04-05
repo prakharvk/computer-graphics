@@ -1,10 +1,8 @@
 #include<stdio.h>
 #include<graphics.h>
-int gd=DETECT,gm=0;
 
 void tr(int x,int y,int ox,int oy,int c){
     putpixel(x+ox,y+oy,c);
-
 }
 
 void para(int a){
@@ -33,9 +31,12 @@ void para(int a){
     }
 }
 
-void main(){
+int main(){
+    int gd=DETECT,gm=0;
     initgraph(&gd,&gm,0);
+    
     para(50);
-    delay(5000);
+    getch();
     closegraph();
+    return 0;
 }
